@@ -1,6 +1,6 @@
 /**
  * Definición de `PL-03_toma_inventario_fisico.xlsx` tal como existe en
- * Plantillas_Valuacion_Activos/excel: hoja INVENTARIO, encabezados en la fila 6
+ * especificacion/plantillas/excel: hoja INVENTARIO, encabezados en la fila 6
  * y ejemplo en la 7. Los nombres de columna son literalmente los del archivo.
  *
  * `clase_activo`, `sede` y `servicio_ubicacion` llegan como TEXTO —lo que la
@@ -16,7 +16,7 @@ export const PL_03: DefinicionPlantilla = {
   hojas: [
     {
       nombre: HOJA_INVENTARIO,
-      // RN-02-01: unicidad dentro del ejercicio. La placa se comprueba aparte
+      // RN-02-01: unicidad dentro de la entidad. La placa se comprueba aparte
       // porque las dos claves son independientes y cada una da su propio motivo.
       claveUnica: ['codigo_institucional'],
       columnas: [

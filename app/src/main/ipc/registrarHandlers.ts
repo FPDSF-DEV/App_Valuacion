@@ -2,14 +2,13 @@ import type { RegistroIpc } from './registroIpc';
 import type { GestorTareas } from './tareas';
 import { probarConexion } from '../infraestructura/db/conexion';
 import { versionEsquema } from '../infraestructura/db/migrador';
-import { registrarCanalesPlataforma } from '../modules/plataforma';
-import { registrarCanalesConfiguracion, PREDICADOS_PASO_01, IMPORTADORES_PASO_01 } from '../modules/configuracion';
+import { registrarCanalesConfiguracion, PREDICADOS_CONFIGURACION, IMPORTADORES_PASO_01 } from '../modules/configuracion';
 import { registrarCanalesValidaciones } from '../modules/validaciones';
-import { PREDICADOS_PASO_02, registrarCanalesInventario, IMPORTADOR_PL_03 } from '../modules/inventario';
-import { PREDICADOS_PASO_03, IMPORTADOR_PL_05 } from '../modules/hojas-vida';
+import { registrarCanalesInventario, IMPORTADOR_PL_03 } from '../modules/inventario';
+import { IMPORTADOR_PL_05 } from '../modules/hojas-vida';
 import { registrarCanalesDocumental } from '../modules/documental';
-import { registrarCanalesCalculo, PREDICADOS_PASO_05, PREDICADOS_PASO_06 } from '../modules/calculo';
-import { registrarCanalesBajas, PREDICADOS_PASO_09 } from '../modules/bajas';
+import { registrarCanalesCalculo } from '../modules/calculo';
+import { registrarCanalesBajas } from '../modules/bajas';
 import { registrarCanalesInforme } from '../modules/informe';
 import { confirmarImportacion, previsualizarImportacion, registrarImportadores } from '../infraestructura/documental/excel/orquestadorImportacion';
 
@@ -22,7 +21,7 @@ export interface DependenciasHandlers {
 }
 
 /**
- * Registra TODOS los canales del contrato: los de plataforma y los de cada módulo.
+ * Registra TODOS los canales del contrato, módulo por módulo.
  * El test de T-B-08 compara lo registrado aquí con `CANALES`.
  */
 export function registrarTodosLosHandlers(registro: RegistroIpc, deps: DependenciasHandlers): void {
@@ -44,15 +43,14 @@ export function registrarTodosLosHandlers(registro: RegistroIpc, deps: Dependenc
 
   registro.registrar('tarea:cancelar', ({ tareaId }) => ({ cancelada: deps.tareas.cancelar(tareaId) }));
 
-  registrarCanalesPlataforma(registro);
   registrarCanalesConfiguracion(registro);
   registrarCanalesInventario(registro);
   registrarCanalesDocumental(registro);
   registrarCanalesCalculo(registro);
   registrarCanalesBajas(registro);
   registrarCanalesInforme(registro);
-  // Los predicados de cada paso los aporta su módulo de dominio; el motor solo los evalúa.
-  registrarCanalesValidaciones(registro, [PREDICADOS_PASO_01, PREDICADOS_PASO_02, PREDICADOS_PASO_03, PREDICADOS_PASO_05, PREDICADOS_PASO_06, PREDICADOS_PASO_09]);
+  // Los predicados los aporta el módulo de dominio; el motor solo los evalúa.
+  registrarCanalesValidaciones(registro, [PREDICADOS_CONFIGURACION]);
 
   // Importación (TR-02): la orquestación es una sola; cada módulo aporta las
   // plantillas que sabe leer y escribir.

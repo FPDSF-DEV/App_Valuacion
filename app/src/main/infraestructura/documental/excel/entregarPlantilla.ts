@@ -3,7 +3,7 @@
  * parametrizadas con los catálogos de la entidad**: listas desplegables con las
  * clases, sedes y servicios reales del hospital, y el membrete con su razón social.
  *
- * Se parte de los libros reales de `Plantillas_Valuacion_Activos` (verificados con
+ * Se parte de los libros reales de `especificacion/plantillas` (verificados con
  * 0 errores de fórmula) en vez de regenerarlos: `PL-08`, `PL-09`, `PL-10` y `PL-11`
  * llevan el motor de cálculo embebido en fórmulas y reescribirlas sería rehacer un
  * trabajo ya hecho y probado.
@@ -17,16 +17,14 @@ import type { ColumnaConCatalogo, DefinicionPlantillaEntregable } from './catalo
 import { PRIMERA_FILA_DATOS } from './catalogoPlantillas';
 
 /** Catálogos del hospital que se inyectan como listas desplegables. */
-export interface CatalogosEntidad {
+export interface CatalogosProceso {
   readonly clases: readonly string[];
   readonly sedes: readonly string[];
   readonly servicios: readonly string[];
-  readonly responsables: readonly string[];
 }
 
 export interface DatosMembrete {
   readonly razonSocial: string;
-  readonly fechaCorte: string | null;
 }
 
 /** Excel limita la lista literal a 255 caracteres; por encima se usa una hoja auxiliar. */
@@ -34,7 +32,7 @@ const LIMITE_LISTA_LITERAL = 250;
 const HOJA_CATALOGOS = 'CATALOGOS';
 const ULTIMA_FILA_VALIDACION = 2000;
 
-function valoresDe(catalogos: CatalogosEntidad, cual: ColumnaConCatalogo['catalogo']): readonly string[] {
+function valoresDe(catalogos: CatalogosProceso, cual: ColumnaConCatalogo['catalogo']): readonly string[] {
   return catalogos[cual];
 }
 
@@ -88,7 +86,8 @@ function inyectarLista(libro: ExcelJS.Workbook, def: ColumnaConCatalogo, valores
 function aplicarMembrete(libro: ExcelJS.Workbook, membrete: DatosMembrete): void {
   const sustituciones: Record<string, string> = {
     '{{ENTIDAD_RAZON_SOCIAL}}': membrete.razonSocial,
-    '{{FECHA_CORTE}}': membrete.fechaCorte ?? '',
+    // La fecha de corte se elige al calcular, no al descargar el formato (ADR-028).
+    '{{FECHA_CORTE}}': '',
   };
   for (const hoja of libro.worksheets) {
     for (let fila = 1; fila <= Math.min(hoja.rowCount, 6); fila++) {
@@ -116,7 +115,7 @@ export async function entregarPlantilla(
   plantilla: DefinicionPlantillaEntregable,
   rutaOrigen: string,
   rutaDestino: string,
-  catalogos: CatalogosEntidad,
+  catalogos: CatalogosProceso,
   membrete: DatosMembrete,
 ): Promise<ResultadoEntrega> {
   if (!existsSync(rutaOrigen)) {
@@ -160,11 +159,11 @@ export function rutaPlantillas(empaquetada: boolean, resourcesPath: string, raiz
   const candidatas = empaquetada
     ? [join(resourcesPath, 'plantillas')]
     : [
-        join(raizProyecto, '..', 'Plantillas_Valuacion_Activos'),
-        join(raizProyecto, '..', '..', 'Plantillas_Valuacion_Activos'),
-        join(raizProyecto, '..', '..', '..', 'Plantillas_Valuacion_Activos'),
-        join(process.cwd(), '..', 'Plantillas_Valuacion_Activos'),
-        join(process.cwd(), 'Plantillas_Valuacion_Activos'),
+        join(raizProyecto, '..', 'especificacion', 'plantillas'),
+        join(raizProyecto, '..', '..', 'especificacion', 'plantillas'),
+        join(raizProyecto, '..', '..', '..', 'especificacion', 'plantillas'),
+        join(process.cwd(), '..', 'especificacion', 'plantillas'),
+        join(process.cwd(), 'especificacion', 'plantillas'),
         join(resourcesPath, 'plantillas'),
       ];
   return candidatas.find((c) => existsSync(join(c, 'excel'))) ?? candidatas[0] ?? '';
