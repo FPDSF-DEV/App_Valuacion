@@ -3,8 +3,8 @@
 > **LEER ESTE ARCHIVO PRIMERO.** Es el punto de entrada obligatorio para cualquier persona o agente
 > que retome el trabajo. Ver `.claude/config_sesion.json` § *protocolo_inicio*.
 
-**Última actualización:** 2026-09-25
-**Actualizado por:** Claude (ADR-029: el proceso es lo principal)
+**Última actualización:** 2026-11-06
+**Actualizado por:** Claude (documentación de entrada: README, manual, contribución)
 **Versión del plan:** 1.1 + **ADR-026** a **ADR-029** · **Versión de `/especificacion/teoria`:** 2.1
 
 ---
@@ -22,6 +22,10 @@ cambió: mismas cifras de `ANEXO_C`.
 ---
 
 ## 2. Última tarea realizada
+
+**Documentación de entrada**, el 2026-11-06: [`README.md`](../../README.md), [`app/README.md`](../../app/README.md),
+[`CONTRIBUTING.md`](../../CONTRIBUTING.md) y [`MANUAL_DE_USO.md`](../../MANUAL_DE_USO.md). No se tocó código.
+Quedan cifras desfasadas en `app/docs/` (detalle en la bitácora).
 
 **Defecto del 2026-09-25**: la app instalada no abría con una base de otra versión (el error de
 arranque no se atrapaba). Ahora detecta la base incompatible y ofrece apartarla y empezar en blanco.

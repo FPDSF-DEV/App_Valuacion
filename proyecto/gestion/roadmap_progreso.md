@@ -1,7 +1,7 @@
 # Roadmap de progreso
 
 **Sincronizado con:** `/proyecto/plan` v1.1
-**Última actualización:** 2026-09-24 *(ADR-029: el proceso es lo principal; ADR-028: las extensiones quedan omitidas)*
+**Última actualización:** 2026-11-06 *(documentación de entrada: README, manual de uso, CONTRIBUTING)* · antes 2026-09-24 *(ADR-029: el proceso es lo principal; ADR-028: las extensiones quedan omitidas)*
 
 > **Regla de sincronización.** Este archivo debe reflejar siempre las fases y tareas definidas en
 > `/proyecto/plan/FASE_5_IMPLEMENTACION/5.0_backlog_maestro.md`. Si el backlog cambia, este archivo

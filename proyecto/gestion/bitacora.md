@@ -32,6 +32,19 @@ Reglas:
 
 ---
 
+## 2026-11-06 · Claude · Documentación de entrada: README, manual de uso y guía de contribución
+
+**Tareas:** documentación (pedido del propietario)
+
+- Nuevos: `README.md` en la raíz, que es el punto de entrada (qué es, cómo funciona, inicio rápido, mapa y por dónde leer); `app/README.md` (requisitos, `npm ci --ignore-scripts`, comandos, datos, problemas frecuentes); `CONTRIBUTING.md` (flujo de trabajo, jerarquía teoría → ADR → código, puerta de calidad, cierre de sesión); `MANUAL_DE_USO.md` (para el responsable de activos, de iniciar a finalizar).
+- Son archivos en la raíz, no una carpeta: el mapa de cuatro carpetas no cambia.
+- Lo escrito se contrastó con el código: umbrales del semáforo (`parametros_defecto.json`), motivos de candidato (`candidatoBaja.ts`), causales (`CAUSAL_BAJA`) y el diálogo de base incompatible (`main/index.ts`).
+- **Cifras desfasadas en `app/docs/`, sin corregir:** `01_PANORAMA` dice 16 disparadores y 360 tests (hoy son 68 y 372); `10_CONSTRUIR` dice que el instalador lleva las 28 plantillas (lleva 5) y que `db:triggers` regenera 13; `README` dice 27 ADR (son 29).
+
+**Siguiente:** recontar y corregir esas cifras de `app/docs/`; luego sigue `T-C-03`, según `estado_actual.md` §4.
+
+---
+
 ## 2026-09-25 · Claude · Defecto: la app instalada no abría con una base de otra versión
 
 **Tareas:** defecto reportado por el propietario

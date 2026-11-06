@@ -26,6 +26,8 @@ fino vive en `proyecto/gestion/estado_actual.md` — ese archivo manda, no esta 
 
 Cuatro carpetas en la raíz: **qué** debe hacer la app (`especificacion/`), **cómo se construye y en
 qué va** (`proyecto/`), la **app** misma (`app/`) y los **datos de prueba** (`datos_de_prueba/`).
+En la raíz, además: `README.md` (punto de entrada), `MANUAL_DE_USO.md` (para quien usa la app) y
+`CONTRIBUTING.md` (flujo de trabajo). `app/README.md` es el inicio rápido de desarrollo.
 
 | Carpeta | Qué contiene | Se modifica |
 |---|---|---|
